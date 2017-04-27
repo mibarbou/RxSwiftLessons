@@ -20,10 +20,26 @@ example(of: "PublishSubject") {
     }
 
     // Add code to update dealtHand here
+    let value = points(for: hand)
+    
+    if value > 21 {
+        dealtHand.onError(HandError.busted)
+    } else {
+        dealtHand.onNext(hand)
+    }
+    
 
   }
 
   // Add subscription to dealtHand here
+    dealtHand.subscribe(
+        onNext: {
+            print(cardString(for: $0), "for", points(for: $0), "points")
+        },
+        onError: { print(String(describing: $0).capitalized)
+        }
+    )
+    .addDisposableTo(disposeBag)
 
 
   deal(3)
