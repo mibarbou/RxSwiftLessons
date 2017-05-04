@@ -32,8 +32,23 @@ example(of: "Challenge 1") {
   let input = PublishSubject<Int>()
 
   // Add your code here
-
-
+    input
+        .skipWhile { $0 == 0 }
+        .filter { $0 < 10 }
+        .take(10)
+        .toArray()
+        .subscribe(onNext: {
+            let phone = phoneNumber(from: $0)
+            
+            if let contact = contacts[phone] {
+                print("Dialing \(contact) (\(phone))...")
+            } else {
+                print("Contact not found")
+            }
+        })
+        .addDisposableTo(disposeBag)
+    
+    
   input.onNext(0)
   input.onNext(603)
 
@@ -41,7 +56,7 @@ example(of: "Challenge 1") {
   input.onNext(1)
 
   // Confirm that 7 results in "Contact not found", and then change to 2 and confirm that Junior is found
-  input.onNext(7)
+  input.onNext(2)
 
   "5551212".characters.forEach {
     if let number = (Int("\($0)")) {
@@ -73,3 +88,18 @@ example(of: "Challenge 1") {
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
