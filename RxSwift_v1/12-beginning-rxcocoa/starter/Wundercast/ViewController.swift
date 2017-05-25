@@ -31,12 +31,49 @@ class ViewController: UIViewController {
   @IBOutlet weak var humidityLabel: UILabel!
   @IBOutlet weak var iconLabel: UILabel!
   @IBOutlet weak var cityNameLabel: UILabel!
+    @IBOutlet weak var tempSwitch: UISwitch!
+    
+    let bag = DisposeBag()
 
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
 
     style()
+    
+    let textSearch = searchCityName.rx.controlEvent(.editingDidEndOnExit).asObservable()
+    let temperature = tempSwitch.rx.controlEvent(.valueChanged).asObservable()
+
+    let search = Observable.from([textSearch, temperature])
+        .merge()
+        .map { self.searchCityName.text }
+        .filter { ($0 ?? "").characters.count > 0 }
+        .flatMap { text in
+            return ApiController.shared.currentWeather(city: text ?? "Error")
+                .catchErrorJustReturn(ApiController.Weather.empty)
+        }
+        .asDriver(onErrorJustReturn: ApiController.Weather.empty)
+    
+    search.map { t in
+            if self.tempSwitch.isOn {
+                return "\(Int(Double(t.temperature) * 1.8 + 32))° F"
+            }
+            return "\(t.temperature)° C"
+        }
+        .drive(tempLabel.rx.text)
+        .addDisposableTo(bag)
+    
+    search.map { $0.icon }
+        .drive(iconLabel.rx.text)
+        .addDisposableTo(bag)
+    
+    search.map { "\($0.humidity)%" }
+        .drive(humidityLabel.rx.text)
+        .addDisposableTo(bag)
+    
+    search.map { $0.cityName }
+        .drive(cityNameLabel.rx.text)
+        .addDisposableTo(bag)
 
   }
 
