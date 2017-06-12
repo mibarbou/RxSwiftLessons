@@ -48,12 +48,12 @@ class ViewController : UIViewController {
     guard let textField = self.hexTextField else { return }
 
     textField.rx.text.orEmpty
-      .bindTo(viewModel.hexString)
+      .bind(to: viewModel.hexString)
       .addDisposableTo(disposeBag)
 
     for button in buttons {
       button.rx.tap
-        .bindNext {
+        .bind {
           var shouldUpdate = false
 
           switch button.titleLabel!.text! {
