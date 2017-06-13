@@ -1,0 +1,49 @@
+PODS:
+  - Gifu (2.0.0)
+  - Nimble (6.1.0)
+  - OHHTTPStubs (6.0.0):
+    - OHHTTPStubs/Default (= 6.0.0)
+  - OHHTTPStubs/Core (6.0.0)
+  - OHHTTPStubs/Default (6.0.0):
+    - OHHTTPStubs/Core
+    - OHHTTPStubs/JSON
+    - OHHTTPStubs/NSURLSession
+    - OHHTTPStubs/OHPathHelpers
+  - OHHTTPStubs/JSON (6.0.0):
+    - OHHTTPStubs/Core
+  - OHHTTPStubs/NSURLSession (6.0.0):
+    - OHHTTPStubs/Core
+  - OHHTTPStubs/OHPathHelpers (6.0.0)
+  - OHHTTPStubs/Swift (6.0.0):
+    - OHHTTPStubs/Default
+  - RxBlocking (3.5.0):
+    - RxSwift (~> 3.4)
+  - RxNimble (2.0.0):
+    - Nimble (~> 6.0)
+    - RxBlocking (~> 3.0)
+    - RxSwift (~> 3.0)
+  - RxSwift (3.5.0)
+  - SwiftyJSON (3.1.4)
+
+DEPENDENCIES:
+  - Gifu
+  - Nimble
+  - OHHTTPStubs
+  - OHHTTPStubs/Swift
+  - RxBlocking
+  - RxNimble
+  - RxSwift (~> 3.0)
+  - SwiftyJSON
+
+SPEC CHECKSUMS:
+  Gifu: 56a4d8f1092399159fa32662aa2232158b48d8ac
+  Nimble: c53e6903fee94041b90ded74f135820437d8bf59
+  OHHTTPStubs: 752f9b11fd810a15162d50f11c06ff94f8e012eb
+  RxBlocking: 471315e18b87c5ed4b9d0c69a57dfdbca5c01af1
+  RxNimble: 50a9da5852b298b2ec632cb00b79fa20be9f31b8
+  RxSwift: 18ee9d78b45edb3b0b7e79916b47a116e6dbc842
+  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
+
+PODFILE CHECKSUM: beff783acf99bf94fc09593a71b8de51d3efa9c8
+
+COCOAPODS: 1.2.1
